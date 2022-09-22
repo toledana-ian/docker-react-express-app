@@ -5,8 +5,6 @@ services:
     build:
       context: ./
       dockerfile: ./docker/config/nginx/Dockerfile
-    depends_on:
-      - php
     volumes:
       - ./docker/config/nginx/site.conf:/etc/nginx/conf.d/default.conf
     ports:
