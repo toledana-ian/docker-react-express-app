@@ -1,0 +1,41 @@
+version: "3"
+services:
+
+  nginx:
+    build:
+      context: ./
+      dockerfile: ./docker/config/nginx/Dockerfile
+    depends_on:
+      - php
+    volumes:
+      - ./docker/config/nginx/site.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "80:80"
+    networks:
+      - internal
+
+  frontend:
+    build:
+      context: ./
+      dockerfile: ./docker/config/frontend/Dockerfile
+    depends_on:
+      - nodejs
+    volumes:
+      - ./frontend:/usr/src/app/
+      - ./docker/config/frontend/init.sh:/init.sh
+    networks:
+      - internal
+
+  nodejs:
+    build:
+      context: ./
+      dockerfile: ./docker/config/nodejs/Dockerfile
+    volumes:
+      - ./nodejs:/usr/src/app/
+      - ./docker/config/nodejs/init.sh:/init.sh
+    networks:
+      - internal
+
+networks:
+  internal:
+    driver: bridge
