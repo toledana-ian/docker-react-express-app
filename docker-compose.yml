@@ -1,4 +1,4 @@
-version: "3"
+version: "3.7"
 services:
 
   nginx:
@@ -28,6 +28,8 @@ services:
     build:
       context: ./
       dockerfile: ./docker/config/nodejs/Dockerfile
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     volumes:
       - ./nodejs:/usr/src/app/
       - ./docker/config/nodejs/init.sh:/init.sh

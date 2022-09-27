@@ -1,1 +1,1 @@
-cp .env.prod .env && npx prisma generate && npm install && npm run start
+cp .env.prod .env && npm install && npm run start
