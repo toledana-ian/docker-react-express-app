@@ -25,14 +25,41 @@ services:
       - internal
 
   nodejs:
+    platform: linux/amd64
     build:
       context: ./
       dockerfile: ./docker/config/nodejs/Dockerfile
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
     volumes:
       - ./nodejs:/usr/src/app/
       - ./docker/config/nodejs/init.sh:/init.sh
+    networks:
+      - internal
+
+  database:
+    build:
+      context: ./
+      dockerfile: ./docker/config/database/Dockerfile
+    volumes:
+      - ./docker/data/database:/var/lib/mysql
+      - ./docker/logs/database:/var/log/mysql
+    ports:
+      - '3306:3306'
+    networks:
+      - internal
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    depends_on:
+      - database
+    environment:
+      PMA_HOST: database
+      PMA_PORT: 3306
+      MAX_EXECUTION_TIME: 3600
+      UPLOAD_LIMIT: 500M
+    volumes:
+      - ./docker/data/phpmyadmin/sessions:/sessions
+    ports:
+      - '8080:80'
     networks:
       - internal
 

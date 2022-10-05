@@ -1,1 +1,2 @@
-npm install && npm run build && npm install -g serve && serve -s build -l 3000
+npm install
+npm run start

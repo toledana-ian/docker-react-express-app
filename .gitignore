@@ -3,5 +3,12 @@
 # misc
 .idea
 .DS_Store
+
+# docker volumes
+/docker/data
+/docker/logs
+
+# projects
 /frontend
 /nodejs
+/lamnda

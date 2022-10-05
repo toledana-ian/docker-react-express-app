@@ -1,1 +1,4 @@
-cp .env.prod .env && npm install && npm run start
+cp .env.docker .env
+npm install
+npx prisma migrate dev
+npm run dev
