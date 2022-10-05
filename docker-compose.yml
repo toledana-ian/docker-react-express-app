@@ -2,6 +2,9 @@ version: "3.7"
 services:
 
   nginx:
+    depends_on:
+      - frontend
+      - nodejs
     build:
       context: ./
       dockerfile: ./docker/config/nginx/Dockerfile
@@ -26,6 +29,8 @@ services:
 
   nodejs:
     platform: linux/amd64
+    depends_on:
+      - database
     build:
       context: ./
       dockerfile: ./docker/config/nodejs/Dockerfile
