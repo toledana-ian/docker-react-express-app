@@ -40,6 +40,18 @@ services:
     networks:
       - internal
 
+  lambda:
+    depends_on:
+      - database
+    build:
+      context: ./
+      dockerfile: ./docker/config/lambda/Dockerfile
+    volumes:
+      - ./lambda:/usr/src/app/
+      - ./docker/config/lambda/init.sh:/init.sh
+    networks:
+      - internal
+
   database:
     build:
       context: ./
